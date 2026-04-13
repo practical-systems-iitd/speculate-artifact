@@ -21,7 +21,10 @@ docker run --rm \
   /artifact/scripts/run_java_repo.sh --analyze-only Ur-Codebin-API
 ```
 
-The image auto-fetches working LLM API keys on startup. Output appears under
+The image auto-fetches working LLM API keys on startup — no credential setup
+needed. The auto-fetched env covers all five models from the paper evaluation:
+`o4_mini`, `gpt_4_1`, `gpt_4_1_mini`, `gpt_o1`, and `deepseek_r1`. Pass any
+of these directly to `--spec-model`. Output appears under
 `outputs/Ur-Codebin-API/<timestamp>/`. Open the `.html` stats file in a browser
 for a full interactive dashboard.
 
@@ -262,10 +265,23 @@ docker run --rm \
 
 | Flag | Description | Default |
 |------|-------------|---------|
-| `--spec-model <name>` | Model for generating specs | Provider default |
+| `--spec-model <name>` | Model for generating specs | `o4_mini` |
 | `--context-model <name>` | Model for identifying missing context | Same as spec model |
 
-Model names must match a key in your env file (`o4_mini`, `gpt_4_1`, `gpt_4_1_mini`, `gpt_o1`, `deepseek_r1`).
+The auto-fetched env (used when no `--env-file` is supplied) covers all five
+models from the paper. The supported `--spec-model` keywords are:
+
+| Keyword | Model |
+|---------|-------|
+| `o4_mini` | GPT-o4-mini (default) |
+| `gpt_4_1` | GPT-4.1 |
+| `gpt_4_1_mini` | GPT-4.1 Mini |
+| `gpt_o1` | GPT-o1 |
+| `deepseek_r1` | DeepSeek-R1 |
+
+Model routing is automatic: names containing `deepseek` are routed to the
+DeepSeek provider; names containing `gemini` to Vertex AI; all others to
+Azure OpenAI.
 
 ### Performance tuning
 
