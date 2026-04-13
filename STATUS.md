@@ -71,6 +71,6 @@ clear template for such extensions.
 
 The artifact is publicly accessible on archival and container registries:
 
-- **Zenodo**: https://doi.org/10.5281/zenodo.19185245
+- **Zenodo**: https://doi.org/10.5281/zenodo.19555331
 - **Docker Hub**: `krishannu/speculate-artifact:latest`
 - **GitHub**: https://github.com/practical-systems-iitd/speculate-artifact
